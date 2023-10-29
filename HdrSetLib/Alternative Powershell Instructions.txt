@@ -1,0 +1,48 @@
+﻿Powershell HDR Registry Setting:
+
+function Set-HDR {
+    param (
+        [Parameter(Mandatory=$true)]
+        [ValidateSet("On", "Off")]
+        [string]$State
+    )
+
+    $hdrRegistryPath = "HKCU:\System\GameConfigStore"
+    $hdrRegistryValueName = "HdrSetting"
+
+    if ($State -eq "On") {
+        $hdrValue = 1
+    } elseif ($State -eq "Off") {
+        $hdrValue = 0
+    }
+
+    try {
+        if (Test-Path $hdrRegistryPath) {
+            Set-ItemProperty -Path $hdrRegistryPath -Name $hdrRegistryValueName -Value $hdrValue
+            Write-Host "HDR setting has been set to $State."
+        } else {
+            Write-Host "HDR registry path not found."
+        }
+    } catch {
+        Write-Host "Error: Could not set HDR setting to $State. Make sure you have administrative privileges."
+    }
+}
+
+Set-HDR -State On
+Set-HDR -State Off
+
+
+
+Bing's answer:
+
+Yes, you can change the Windows HDR setting through C# or PowerShell. You can use the Connecting and Configuring Displays (CCD) API, specifically the DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO request (which is not really documented in MSDN but is defined in wingdi.h). Here is some C# Console Application sample code that dumps for each monitor if it supports HDR and if it's enabled⁵. You can also use PowerShell to turn on/off HDR in Windows 10. You can use the following command to turn on HDR in Windows 10: `Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\HDR\AutoSwitch' -Name 'Value' -Value 1`¹. To turn off HDR, you can use the following command: `Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\HDR\AutoSwitch' -Name 'Value' -Value 0`¹.
+
+Source: Conversation with Bing, 3/21/2023(1) c# - Windows API to get whether HDR(High Dynamic Range) is active .... https://stackoverflow.com/questions/66155083/windows-api-to-get-whether-hdrhigh-dynamic-range-is-active Accessed 3/21/2023.
+(2) powershell - Setting Windows 10 HDR on/off or HDR/SDR balance from .... https://stackoverflow.com/questions/63747912/setting-windows-10-hdr-on-off-or-hdr-sdr-balance-from-command-line Accessed 3/21/2023.
+(3) HDR settings in Windows - Microsoft Support. https://support.microsoft.com/en-us/windows/hdr-settings-in-windows-2d767185-38ec-7fdc-6f97-bbc6c5ef24e6 Accessed 3/21/2023.
+(4) How to toggle HDR with a script on Windows 10 - AddictiveTips. https://www.addictivetips.com/windows-tips/toggle-hdr-with-a-script-on-windows-10/ Accessed 3/21/2023.
+(5) Guide on how to get the most out of your HDR display. https://devblogs.microsoft.com/directx/guide-on-how-to-get-the-most-out-of-your-hdr-display/ Accessed 3/21/2023.
+
+
+
+It seems that the registry key HKCU:\Software\Microsoft\Windows\CurrentVersion\HDR\AutoSwitch does not exist on your computer. You can create the registry key by running the following command in PowerShell: New-Item -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\HDR' -Force. After creating the registry key, you can use the following command to turn on HDR in Windows 10: Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\HDR\AutoSwitch' -Name 'Value' -Value 1. To turn off HDR, you can use the following command: Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\HDR\AutoSwitch' -Name 'Value' -Value 0.

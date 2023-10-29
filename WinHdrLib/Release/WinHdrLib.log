@@ -1,0 +1,9 @@
+﻿  pch.cpp
+  dllmain.cpp
+  WinHdrLib.cpp
+     Creating library C:\Source\HdrSet\Release\WinHdrLib.lib and object C:\Source\HdrSet\Release\WinHdrLib.exp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 10 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  WinHdrLib.vcxproj -> C:\Source\HdrSet\Release\WinHdrLib.dll
